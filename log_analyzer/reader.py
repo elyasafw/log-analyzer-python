@@ -22,7 +22,7 @@ def sensitive_port_filtering(list_logs):
 
 def filter_by_size(list_logs):
     filter_size = [size for size in list_logs if int(size[-1]) > 5000]
-
+    
     return filter_size
 
 

@@ -37,6 +37,9 @@ def ip_suspicions(list_logs):
 
 
 def filtering_suspicions(suspicions_dict):
-    more_2_suspicions = {ip : suspicions_dict[ip] for ip in suspicions_dict if len(suspicions_dict[ip]) > 2}
+    more_2_suspicions = {
+        ip :
+        suspicions_dict[ip] for ip in suspicions_dict if len(suspicions_dict[ip]) > 2
+        }
 
     return more_2_suspicions

@@ -1,4 +1,5 @@
-from reader import load_log_func
+from reader import load_log_func, load_log_gen
+from checks import check_row_suspicions
 from checks import suspicions_checks
 
 
@@ -46,3 +47,7 @@ def filter_night_activity():
     return night_logs
 
 
+def suspicions_with_details_gen():
+    list_logs = load_log_gen(r'./network_traffic.log')
+    for log in list_logs:
+        yield log, check_row_suspicions(log)

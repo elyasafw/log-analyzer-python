@@ -51,3 +51,8 @@ def suspicions_with_details_gen():
     list_logs = load_log_gen(r'./network_traffic.log')
     for log in list_logs:
         yield log, check_row_suspicions(log)
+
+
+def sum_suspicious_rows_gen():
+    line_details = suspicions_with_details_gen()
+    yield sum(1 for log in line_details if len(log[1]) > 0)

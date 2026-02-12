@@ -1,4 +1,5 @@
 from reader import load_log_file
+from config import threat_rules
 
 
 def extract_hours():
@@ -26,6 +27,14 @@ def package_size_conversion():
 def filter_by_port():
     logs = load_log_file(r'./network_traffic.log')
 
-    sensitive_lines = list(filter(lambda line: line[3] in ['22', '23', '3389'], logs))
+    sensitive_lines = list(filter(lambda line: threat_rules["PORT_SENSITIVE"](line), logs))
 
     return sensitive_lines
+
+
+def filter_night_activity():
+    logs = load_log_file(r'./network_traffic.log')
+
+    night_logs = list(filter(lambda log: threat_rules["ACTIVITY_NIGHT"](log), logs))
+
+    return night_logs

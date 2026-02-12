@@ -27,7 +27,10 @@ def package_size_conversion():
 def filter_by_port():
     logs = load_log_file(r'./network_traffic.log')
 
-    sensitive_lines = list(filter(lambda line: threat_rules["PORT_SENSITIVE"](line), logs))
+    sensitive_lines = list(filter(
+        lambda line: threat_rules["PORT_SENSITIVE"](line),
+        logs
+        ))
 
     return sensitive_lines
 
@@ -35,6 +38,9 @@ def filter_by_port():
 def filter_night_activity():
     logs = load_log_file(r'./network_traffic.log')
 
-    night_logs = list(filter(lambda log: threat_rules["ACTIVITY_NIGHT"](log), logs))
+    night_logs = list(filter(
+        lambda log: threat_rules["ACTIVITY_NIGHT"](log),
+        logs
+        ))
 
     return night_logs

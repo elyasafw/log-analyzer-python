@@ -1,3 +1,6 @@
+from reader import load_log_file
+
+
 suspicions_checks = {
     "EXTERNAL_IP":
         lambda log: not log[1].startswith(('192.168', '10.')),
@@ -20,3 +23,9 @@ def check_row_suspicions(row):
         ]
     
     return suspicion
+
+
+def process_all_logs(list_logs):
+    suspicious_only = list(filter(lambda suspicion: len(suspicion) > 0, map(lambda row: check_row_suspicions(row), list_logs)))
+    
+    return suspicious_only

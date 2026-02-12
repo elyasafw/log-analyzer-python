@@ -1,13 +1,19 @@
 import csv
 
-
-def load_log_file(file_path):
+#function
+def load_log_func(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         list_logs = [
             line for line in csv.reader(file)
             ]
 
     return list_logs
+
+#generator
+def load_log_gen(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file:
+        for line in csv.reader(file):
+            yield line
 
 
 def external_ip_extraction(list_logs):

@@ -1,5 +1,5 @@
 from reader import load_log_file
-from config import threat_rules
+from checks import suspicions_checks
 
 
 def extract_hours():
@@ -28,7 +28,7 @@ def filter_by_port():
     logs = load_log_file(r'./network_traffic.log')
 
     sensitive_lines = list(filter(
-        lambda line: threat_rules["PORT_SENSITIVE"](line),
+        lambda line: suspicions_checks["PORT_SENSITIVE"](line),
         logs
         ))
 
@@ -39,8 +39,10 @@ def filter_night_activity():
     logs = load_log_file(r'./network_traffic.log')
 
     night_logs = list(filter(
-        lambda log: threat_rules["ACTIVITY_NIGHT"](log),
+        lambda log: suspicion_checks["ACTIVITY_NIGHT"](log),
         logs
         ))
 
     return night_logs
+
+

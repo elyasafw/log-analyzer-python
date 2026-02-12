@@ -1,4 +1,4 @@
-from config import threat_rules
+from checks import suspicions_checks
 
 
 def req_count_count_by_ip(list_logs):
@@ -27,7 +27,7 @@ def ip_suspicions(list_logs):
     suspicions_dict = {
         ip : [
             suspicions 
-            for suspicions, check_func in threat_rules.items()
+            for suspicions, check_func in suspicions_checks.items()
             if any(check_func(log) for log in list_logs if log[1] == ip)
         ] 
         for ip in unique_ips

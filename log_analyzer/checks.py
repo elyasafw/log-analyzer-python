@@ -33,8 +33,7 @@ def process_all_logs_func(list_logs):
 
 
 #generator
-def process_all_logs_gen():
-    list_logs = load_log_gen(r'./network_traffic.log')
+def process_all_logs_gen(list_logs):
     for log in list_logs:
         if len(check_row_suspicions(log)) > 0:
             yield log

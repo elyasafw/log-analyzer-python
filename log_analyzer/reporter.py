@@ -1,5 +1,5 @@
 from reader import load_log_func, load_log_gen
-from checks import check_row_suspicions
+from checks import check_row_suspicions, process_all_logs_gen
 from checks import suspicions_checks
 
 
@@ -47,12 +47,18 @@ def filter_night_activity():
     return night_logs
 
 
-def suspicions_with_details_gen():
-    list_logs = load_log_gen(r'./network_traffic.log')
+def suspicions_with_details_gen(list_logs):
     for log in list_logs:
         yield log, check_row_suspicions(log)
 
 
-def sum_suspicious_rows_gen():
-    line_details = suspicions_with_details_gen()
-    yield sum(1 for log in line_details if len(log[1]) > 0)
+def sum_suspicious_rows(line_details):
+    return sum(1 for log in line_details if len(log[1]) > 0)
+
+
+lines = load_log_gen(r'./network_traffic.log') # generator
+suspicious = process_all_logs_gen(lines) # generator
+detailed = suspicions_with_details_gen(suspicious) # generator
+
+count = sum_suspicious_rows(detailed)
+print(f"Total suspicious: {count}")

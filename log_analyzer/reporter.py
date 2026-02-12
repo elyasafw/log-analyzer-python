@@ -21,3 +21,11 @@ def package_size_conversion():
         ))
 
     return package_size
+
+
+def filter_by_port():
+    logs = load_log_file(r'./network_traffic.log')
+
+    sensitive_lines = list(filter(lambda line: line[3] in ['22', '23', '3389'], logs))
+
+    return sensitive_lines

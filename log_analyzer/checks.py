@@ -1,4 +1,4 @@
-from reader import load_log_file
+from reader import load_log_gen, load_log_func
 
 
 suspicions_checks = {
@@ -25,7 +25,15 @@ def check_row_suspicions(row):
     return suspicion
 
 
-def process_all_logs(list_logs):
+#function
+def process_all_logs_func(list_logs):
     suspicious_only = list(filter(lambda suspicion: len(suspicion) > 0, map(lambda row: check_row_suspicions(row), list_logs)))
     
     return suspicious_only
+
+
+#generator
+def process_all_logs_gen(list_logs):
+    for log in list_logs:
+        if len(check_row_suspicions(log)) > 0:
+            yield log

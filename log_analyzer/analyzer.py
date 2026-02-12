@@ -24,13 +24,19 @@ def ip_suspicions(list_logs):
     unique_ips = {
         log[1] for log in list_logs
         }
-    suspicions = {
-        ip: [
-            name 
-            for name, check_func in threat_rules.items()
+    suspicions_dict = {
+        ip : [
+            suspicions 
+            for suspicions, check_func in threat_rules.items()
             if any(check_func(log) for log in list_logs if log[1] == ip)
         ] 
         for ip in unique_ips
     }
     
-    return suspicions
+    return suspicions_dict
+
+
+def filtering_suspicions(suspicions_dict):
+    more_2_suspicions = {ip : suspicions_dict[ip] for ip in suspicions_dict if len(suspicions_dict[ip]) > 2}
+
+    return more_2_suspicions

@@ -1,7 +1,8 @@
 from checks import suspicions_checks
+from reader import load_log_gen
 
 
-def req_count_count_by_ip(list_logs):
+def req_count_by_ip(list_logs):
     all_ips = [
         row[1] for row in list_logs
         ]
